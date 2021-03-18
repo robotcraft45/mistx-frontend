@@ -13,7 +13,7 @@ function App() {
         bgGradient='linear(to-r, #FF0080, #7928CA)'
         bgClip='text'
       >
-        MistX
+        mistX
       </Heading>
       <Text color='gray.400' fontSize='2xl'>
         Gasless DEX
