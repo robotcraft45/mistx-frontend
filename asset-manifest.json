@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.js": "/mistx-frontend/static/js/main.b10a58f0.chunk.js",
-    "main.js.map": "/mistx-frontend/static/js/main.b10a58f0.chunk.js.map",
+    "main.js": "/mistx-frontend/static/js/main.b675df89.chunk.js",
+    "main.js.map": "/mistx-frontend/static/js/main.b675df89.chunk.js.map",
     "runtime-main.js": "/mistx-frontend/static/js/runtime-main.a39cf5dd.js",
     "runtime-main.js.map": "/mistx-frontend/static/js/runtime-main.a39cf5dd.js.map",
     "static/js/2.86e28bf0.chunk.js": "/mistx-frontend/static/js/2.86e28bf0.chunk.js",
@@ -14,6 +14,6 @@
   "entrypoints": [
     "static/js/runtime-main.a39cf5dd.js",
     "static/js/2.86e28bf0.chunk.js",
-    "static/js/main.b10a58f0.chunk.js"
+    "static/js/main.b675df89.chunk.js"
   ]
 }
