@@ -3,6 +3,7 @@ import Notify, { API as NotifyAPI } from 'bnc-notify';
 import { API as OnboardAPI, Wallet } from 'bnc-onboard/dist/src/interfaces';
 import { Dispatch, SetStateAction } from 'react';
 import { Network } from '../types';
+import { config } from '../config';
 
 type Subscriptions = {
   address: Dispatch<SetStateAction<string | undefined>>;
@@ -11,10 +12,7 @@ type Subscriptions = {
   wallet: (wallet: Wallet) => void;
 };
 
-const networkId = Network.MAINNET;
-const rpcUrl = process.env.REACT_APP_RPC_URL;
-const dappId = process.env.REACT_APP_D_APP_ID;
-const appName = process.env.REACT_APP_NAME;
+const { dappId, networkId, rpcUrl, appName } = config;
 
 export function initOnboard(subscriptions: Subscriptions): OnboardAPI {
   return Onboard({
