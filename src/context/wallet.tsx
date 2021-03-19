@@ -47,7 +47,7 @@ function WalletProvider({ children }: WalletProviderProps): ReactElement {
         }
       },
       wallet: (wallet: Wallet) => {
-        if (wallet?.provider?.selectedAddress) {
+        if (wallet?.provider) {
           setWallet(wallet);
           handleSetProvider(wallet);
           setLoading(false);
