@@ -69,6 +69,10 @@ function WalletProvider({ children }: WalletProviderProps): ReactElement {
       'selectedWallet'
     );
 
+    if (!previouslySelectedWallet) {
+      setLoading(false);
+    }
+
     if (previouslySelectedWallet && onboard) {
       onboard.walletSelect(previouslySelectedWallet);
     }
