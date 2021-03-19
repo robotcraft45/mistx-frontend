@@ -1,6 +1,11 @@
+import { useWallet } from './context/wallet';
 import { Flex, Heading, Text } from '@chakra-ui/layout';
+import WalletButton from './components/wallet-button';
+import Balance from './components/balance';
 
 function App() {
+  const { provider, wallet, balance } = useWallet();
+
   return (
     <Flex
       minH='100vh'
@@ -18,6 +23,8 @@ function App() {
       <Text color='gray.400' fontSize='2xl'>
         Gasless DEX
       </Text>
+      <WalletButton connected={!!wallet && !!provider} />
+      {balance && <Balance />}
     </Flex>
   );
 }
