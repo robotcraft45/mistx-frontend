@@ -12,7 +12,7 @@ import {
   useState,
 } from 'react';
 
-  type WalletProviderContext = {
+type WalletProviderContext = {
   provider?: ethers.providers.Web3Provider;
   address?: string;
   network?: Network;
@@ -93,7 +93,9 @@ function WalletProvider({ children }: WalletProviderProps): ReactElement {
     }
 
     if (previouslySelectedWallet && onboard) {
-      onboard.walletSelect(previouslySelectedWallet);
+      onboard
+        .walletSelect(previouslySelectedWallet)
+        .then(() => onboard.walletCheck());
     }
   }, [onboard]);
 
