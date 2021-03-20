@@ -20,4 +20,7 @@ export const GlobalStyles = css`
     color: #0b86f4 !important;
     border-color: #0b86f4 !important;
   }
+  .bn-onboard-selected-wallet {
+    background: #0B86F4 !important;
+  }
 `;

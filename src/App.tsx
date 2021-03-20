@@ -4,7 +4,7 @@ import WalletButton from './components/wallet-button';
 import Balance from './components/balance';
 
 function App() {
-  const { provider, wallet, balance } = useWallet();
+  const { provider, wallet, ethBalance } = useWallet();
 
   return (
     <Flex
@@ -24,7 +24,7 @@ function App() {
         Gasless DEX
       </Text>
       <WalletButton connected={!!wallet && !!provider} />
-      {balance && <Balance />}
+      {ethBalance && <Balance />}
     </Flex>
   );
 }

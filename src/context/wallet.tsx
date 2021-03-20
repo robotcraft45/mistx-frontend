@@ -1,7 +1,9 @@
 import { ethers } from 'ethers';
+import { config } from '../config';
 import { Network } from '../types';
 import { Wallet } from 'bnc-onboard/dist/src/interfaces';
 import { initNotify, initOnboard } from '../services/wallet';
+import IUniswapV2ERC20 from '../contracts/IUniswapV2ERC20.json';
 import {
   createContext,
   ReactElement,
@@ -10,11 +12,12 @@ import {
   useState,
 } from 'react';
 
-type WalletProviderContext = {
+  type WalletProviderContext = {
   provider?: ethers.providers.Web3Provider;
   address?: string;
   network?: Network;
-  balance?: string;
+  ethBalance?: string;
+  mistBalance?: string;
   wallet?: Wallet;
   loading?: boolean;
   onboard?: ReturnType<typeof initOnboard>;
@@ -31,7 +34,8 @@ function WalletProvider({ children }: WalletProviderProps): ReactElement {
   const [provider, setProvider] = useState<ethers.providers.Web3Provider>();
   const [address, setAddress] = useState<string>();
   const [network, setNetwork] = useState<Network>();
-  const [balance, setBalance] = useState<string>();
+  const [ethBalance, setEthBalance] = useState<string>();
+  const [mistBalance, setMistBalance] = useState<string>();
   const [wallet, setWallet] = useState<Wallet>();
   const [loading, setLoading] = useState<boolean>(true);
   const [onboard, setOnboard] = useState<ReturnType<typeof initOnboard>>();
@@ -43,18 +47,19 @@ function WalletProvider({ children }: WalletProviderProps): ReactElement {
       network: setNetwork,
       balance: (balance) => {
         if (balance) {
-          setBalance(ethers.utils.formatEther(balance));
+          setEthBalance(ethers.utils.formatEther(balance));
         }
       },
       wallet: (wallet: Wallet) => {
         if (wallet?.provider) {
-          setWallet(wallet);
+          handleSetWallet(wallet);
           handleSetProvider(wallet);
           setLoading(false);
         } else {
           setProvider(undefined);
           setWallet(undefined);
-          setBalance(undefined);
+          setEthBalance(undefined);
+          setMistBalance(undefined);
           setLoading(false);
         }
       },
@@ -63,6 +68,20 @@ function WalletProvider({ children }: WalletProviderProps): ReactElement {
     setOnboard(onboard);
     setNotify(initNotify());
   }, []);
+
+  useEffect(() => {
+    if (provider && address) {
+      const contract = new ethers.Contract(
+        config.mistAddress,
+        IUniswapV2ERC20.abi,
+        provider.getSigner()
+      );
+
+      contract.balanceOf(address).then((balance: string) => {
+        setMistBalance(ethers.utils.formatEther(balance));
+      });
+    }
+  }, [provider, address]);
 
   useEffect(() => {
     const previouslySelectedWallet = window.localStorage.getItem(
@@ -81,6 +100,10 @@ function WalletProvider({ children }: WalletProviderProps): ReactElement {
   const handleSetProvider = (wallet: Wallet) => {
     const ethersProvider = new ethers.providers.Web3Provider(wallet.provider);
     setProvider(ethersProvider);
+  };
+
+  const handleSetWallet = (wallet: Wallet) => {
+    setWallet(wallet);
     window.localStorage.setItem('selectedWallet', wallet.name || '');
   };
 
@@ -90,7 +113,8 @@ function WalletProvider({ children }: WalletProviderProps): ReactElement {
         provider,
         address,
         network,
-        balance,
+        ethBalance,
+        mistBalance,
         wallet,
         loading,
         onboard,

@@ -1,15 +1,15 @@
 import { Button } from '@chakra-ui/button';
 import { useWallet } from '../context/wallet';
+import { truncate } from '../utils';
 
 type Props = {
   connected: boolean;
 };
 
 function WalletButton({ connected }: Props) {
-  const { onboard, loading } = useWallet();
+  const { onboard, loading, address } = useWallet();
 
-  const handleClick = () =>
-    connected ? onboard?.walletReset() : onboard?.walletSelect();
+  const handleClick = () => onboard?.walletSelect()
 
   return (
     <Button
@@ -19,7 +19,7 @@ function WalletButton({ connected }: Props) {
       onClick={handleClick}
       isLoading={loading}
     >
-      {connected ? 'Disconnect' : 'Connect'}
+      {connected ?  truncate(address) : 'Connect'}
     </Button>
   );
 }
