@@ -10,8 +10,9 @@ function WalletButton({ connected }: Props) {
   const { onboard, loading, address } = useWallet();
 
   const handleClick = async () => { 
-    await onboard?.walletSelect()
-    await onboard?.walletCheck()
+    onboard?.walletSelect().then((selected) => {
+      selected && onboard?.walletCheck()
+    })
   }
 
   const isLoading = loading || (connected && !address)

@@ -51,7 +51,7 @@ function WalletProvider({ children }: WalletProviderProps): ReactElement {
         }
       },
       wallet: (wallet: Wallet) => {
-        if (wallet?.provider) {
+        if (wallet?.provider?.selectedAddress) {
           handleSetWallet(wallet);
           handleSetProvider(wallet);
           setLoading(false);
@@ -95,7 +95,7 @@ function WalletProvider({ children }: WalletProviderProps): ReactElement {
     if (previouslySelectedWallet && onboard) {
       onboard
         .walletSelect(previouslySelectedWallet)
-        .then(() => onboard.walletCheck());
+        .then((selected) => selected && onboard.walletCheck());
     }
   }, [onboard]);
 
