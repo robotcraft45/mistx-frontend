@@ -9,13 +9,13 @@ type Props = {
 function WalletButton({ connected }: Props) {
   const { onboard, loading, address } = useWallet();
 
-  const handleClick = async () => { 
+  const handleClick = async () => {
     onboard?.walletSelect().then((selected) => {
-      selected && onboard?.walletCheck()
-    })
-  }
+      selected && onboard?.walletCheck();
+    });
+  };
 
-  const isLoading = loading || (connected && !address)
+  const isLoading = loading || (connected && !address);
 
   return (
     <Button
