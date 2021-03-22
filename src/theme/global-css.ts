@@ -23,4 +23,7 @@ export const GlobalStyles = css`
   .bn-onboard-selected-wallet {
     background: #0b86f4 !important;
   }
+  .bn-onboard-custom.bn-onboard-modal {
+    z-index: 999 !important;
+  }
 `;
